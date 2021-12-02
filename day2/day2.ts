@@ -6,7 +6,7 @@ namespace day2 {
     down 8
     forward 2`;
     const inputArr = input.split(`\n`);
-    const inputArr2 = inputArr.map(line => {
+    const formattedInput = inputArr.map(line => {
         let x = line.trim().split(' ');
         return {
             dir: x[0],
@@ -14,12 +14,10 @@ namespace day2 {
         };
     }) as Array<{dir: string, len: number}>;
 
-
     function partOne() {
         let forward = 0;
         let depth = 0;
-        for (let i = 0; i < inputArr2.length; i++) {
-            const val = inputArr2[i];
+        for (let val of formattedInput) {
             if (val.dir == 'forward') {
                 forward += val.len;
             } else if (val.dir == 'down') {
@@ -36,8 +34,7 @@ namespace day2 {
         let forward = 0;
         let depth = 0;
         let aim = 0;
-        for (let i = 0; i < inputArr2.length; i++) {
-            const val = inputArr2[i];
+        for (let val of formattedInput) {
             if (val.dir == 'forward') {
                 forward += val.len;
                 depth += val.len * aim;

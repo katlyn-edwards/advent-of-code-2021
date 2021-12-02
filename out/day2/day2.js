@@ -2,7 +2,7 @@ var day2;
 (function (day2) {
     var input = "forward 5\n    down 5\n    forward 8\n    up 3\n    down 8\n    forward 2";
     var inputArr = input.split("\n");
-    var inputArr2 = inputArr.map(function (line) {
+    var formattedInput = inputArr.map(function (line) {
         var x = line.trim().split(' ');
         return {
             dir: x[0],
@@ -12,8 +12,8 @@ var day2;
     function partOne() {
         var forward = 0;
         var depth = 0;
-        for (var i = 0; i < inputArr2.length; i++) {
-            var val = inputArr2[i];
+        for (var _i = 0, formattedInput_1 = formattedInput; _i < formattedInput_1.length; _i++) {
+            var val = formattedInput_1[_i];
             if (val.dir == 'forward') {
                 forward += val.len;
             }
@@ -31,8 +31,8 @@ var day2;
         var forward = 0;
         var depth = 0;
         var aim = 0;
-        for (var i = 0; i < inputArr2.length; i++) {
-            var val = inputArr2[i];
+        for (var _i = 0, formattedInput_2 = formattedInput; _i < formattedInput_2.length; _i++) {
+            var val = formattedInput_2[_i];
             if (val.dir == 'forward') {
                 forward += val.len;
                 depth += val.len * aim;
