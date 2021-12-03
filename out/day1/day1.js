@@ -9,7 +9,7 @@ var day1;
                 increased++;
             }
         }
-        console.log('Part One: ');
+        console.log("Part one: ".concat(increased));
     }
     partOne();
     function partTwo() {
@@ -22,7 +22,7 @@ var day1;
             }
             currTotal = total;
         }
-        console.log('Part two: ' + increased);
+        console.log("Part two: ".concat(increased));
     }
     partTwo();
 })(day1 || (day1 = {}));

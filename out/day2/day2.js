@@ -24,7 +24,7 @@ var day2;
                 depth -= val.len;
             }
         }
-        console.log("Part One: ".concat(forward * depth, " "));
+        console.log("Part one: ".concat(forward * depth, " "));
     }
     partOne();
     function partTwo() {

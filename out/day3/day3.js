@@ -14,7 +14,7 @@ var day3;
         }
         var gamma = parseInt(gammaStr, 2);
         var epsilon = parseInt(epsilonStr, 2);
-        console.log("Part One: ".concat(gamma * epsilon));
+        console.log("Part one: ".concat(gamma * epsilon));
     }
     partOne();
     function partTwo() {

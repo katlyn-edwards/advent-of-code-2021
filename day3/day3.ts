@@ -25,7 +25,7 @@ namespace day3 {
         }
         const gamma = parseInt(gammaStr, 2);
         const epsilon = parseInt(epsilonStr, 2);
-        console.log(`Part One: ${gamma * epsilon}`);
+        console.log(`Part one: ${gamma * epsilon}`);
     }
     partOne();
 

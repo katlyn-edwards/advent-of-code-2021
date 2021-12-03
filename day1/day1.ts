@@ -18,7 +18,7 @@ namespace day1 {
                 increased++;
             }
         }
-        console.log('Part One: ');
+        console.log(`Part one: ${increased}`);
     }
 
     partOne();
@@ -33,7 +33,7 @@ namespace day1 {
             }
             currTotal = total;
         }
-        console.log('Part two: ' + increased);
+        console.log(`Part two: ${increased}`);
     }
 
     partTwo();

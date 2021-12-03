@@ -26,7 +26,7 @@ namespace day2 {
                 depth -= val.len;
             }
         }
-        console.log(`Part One: ${forward * depth} `);
+        console.log(`Part one: ${forward * depth} `);
     }
     partOne();
 
