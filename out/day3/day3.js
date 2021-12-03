@@ -7,9 +7,9 @@ var day3;
     function partOne() {
         var gammaStr = '';
         var epsilonStr = '';
-        for (var j = 0; j < 5; j++) {
+        for (var j = 0; j < inputArr[0].length; j++) {
             var ret = getMaxMin(inputArr, j);
-            gammaStr += ret.common;
+            gammaStr += ret.most;
             epsilonStr += ret.least;
         }
         var gamma = parseInt(gammaStr, 2);
@@ -23,7 +23,7 @@ var day3;
         var index = 0;
         var _loop_1 = function () {
             var ret = getMaxMin(oxygen, index);
-            var compare = ret.equal ? '1' : ret.common;
+            var compare = ret.equal ? '1' : ret.most;
             oxygen = oxygen.filter(function (el) {
                 return el[index] == compare;
             });
@@ -60,10 +60,10 @@ var day3;
                 ones++;
             }
         }
-        var common = ones > zeros ? '1' : '0';
+        var most = ones > zeros ? '1' : '0';
         var least = ones < zeros ? '1' : '0';
-        var equal = common == least;
-        return { common: common, least: least, equal: equal };
+        var equal = most == least;
+        return { most: most, least: least, equal: equal };
     }
 })(day3 || (day3 = {}));
 //# sourceMappingURL=day3.js.map

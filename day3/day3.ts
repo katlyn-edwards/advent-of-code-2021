@@ -18,9 +18,9 @@ namespace day3 {
     function partOne() {
         let gammaStr = '';
         let epsilonStr = '';
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < inputArr[0].length; j++) {
             const ret = getMaxMin(inputArr, j);
-            gammaStr += ret.common;
+            gammaStr += ret.most;
             epsilonStr += ret.least;
         }
         const gamma = parseInt(gammaStr, 2);
@@ -35,7 +35,7 @@ namespace day3 {
         let index = 0;
         while (oxygen.length > 1) {
             const ret = getMaxMin(oxygen, index);
-            const compare = ret.equal ? '1' : ret.common;
+            const compare = ret.equal ? '1' : ret.most;
             oxygen = oxygen.filter(el => {
                 return el[index] == compare;
             });
@@ -54,7 +54,7 @@ namespace day3 {
     }
     partTwo();
 
-    function getMaxMin(input: string[], index:  number): {common: string, least: string, equal: boolean} {
+    function getMaxMin(input: string[], index:  number): {most: string, least: string, equal: boolean} {
         let ones = 0;
             let zeros = 0;
             for (let i = 0; i < input.length; i++) {
@@ -66,9 +66,9 @@ namespace day3 {
                     ones++;
                 }
             }
-            const common = ones > zeros ? '1' : '0';
+            const most = ones > zeros ? '1' : '0';
             const least = ones < zeros ? '1' : '0';
-            const equal = common == least;
-            return {common, least, equal}
+            const equal = most == least;
+            return {most, least, equal}
     }
 }
