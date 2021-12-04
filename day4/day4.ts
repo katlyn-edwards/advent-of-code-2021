@@ -1,3 +1,12 @@
+/** 
+ * big caveat: 
+ * it's been brought to my attention this doesn't handle
+ * a bunch of important edge cases:
+ *  - a false positive bingo because 0 is present in the row/col already
+ *  - marking a called number on boards after a winning board has been spotted
+ *  - removing multiple winners from a number being called
+ */
+
 namespace day4 {
     const input = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
