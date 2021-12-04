@@ -1,5 +1,3 @@
-import { EPIPE } from "constants";
-
 namespace day3 {
     const input = `00100
     11110

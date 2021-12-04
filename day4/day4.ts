@@ -43,7 +43,7 @@ namespace day1 {
         console.log("------")
     }
 
-    function print2DArray(arr: number[][]) {
+    function print2DArray(arr: number[][]): void {
         for (let i = 0; i < arr.length; i++) {
             let line = '';
             for (let j = 0; j < arr[0].length; j++) {
@@ -53,7 +53,7 @@ namespace day1 {
         }
     }
 
-    function checkBingo(board: number[][]) {
+    function checkBingo(board: number[][]): boolean {
         // Check horzontals
         for (let i = 0; i < board.length; i++) {
             if (board[i].reduce((prev: number, curr: number): number => {
@@ -77,7 +77,7 @@ namespace day1 {
         return false;
     }
 
-    function zeroOutNumber(board: number[][], num: number) {
+    function zeroOutNumber(board: number[][], num: number): void {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[0].length; j++) {
                 if (board[i][j] == num) {
