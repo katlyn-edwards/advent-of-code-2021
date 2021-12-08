@@ -3,8 +3,8 @@ namespace day7 {
     const nums = input.split(',').map(el => Number(el));
     const sorted = nums.slice().sort((a, b) => {return a - b});
     const middleIndex = nums.length / 2;
-    const median = Math.round(middleIndex);
-    const linearAlignment = sorted[median];
+    const medianIndex = Math.round(middleIndex);
+    const linearAlignment = sorted[medianIndex];
     const sum = nums.reduce((prev, cur) => {
         return prev + cur;
     }, 0);

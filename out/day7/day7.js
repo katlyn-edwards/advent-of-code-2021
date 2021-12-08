@@ -4,8 +4,8 @@ var day7;
     var nums = input.split(',').map(function (el) { return Number(el); });
     var sorted = nums.slice().sort(function (a, b) { return a - b; });
     var middleIndex = nums.length / 2;
-    var median = Math.round(middleIndex);
-    var linearAlignment = sorted[median];
+    var medianIndex = Math.round(middleIndex);
+    var linearAlignment = sorted[medianIndex];
     var sum = nums.reduce(function (prev, cur) {
         return prev + cur;
     }, 0);
