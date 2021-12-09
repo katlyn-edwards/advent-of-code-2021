@@ -1,6 +1,6 @@
 var day9;
 (function (day9) {
-    var input = "";
+    var input = "2199943210\n    3987894921\n    9856789892\n    8767896789\n    9899965678";
     var arr = [];
     var lines = input.split('\n');
     for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
@@ -50,7 +50,7 @@ var day9;
         var totalRisk = points.reduce(function (prev, curr) {
             return prev + curr.val;
         }, 0);
-        console.log("Part one: ".concat(totalRisk, " ").concat(points.length, " ").concat(totalRisk + points.length));
+        console.log("Part one: ".concat(totalRisk + points.length));
     }
     partOne();
     function findBasinSizeForSink(x, y, arr, st) {

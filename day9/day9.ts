@@ -1,5 +1,9 @@
 namespace day9 {
-    const input = ``;
+    const input = `2199943210
+    3987894921
+    9856789892
+    8767896789
+    9899965678`;
 
     const arr = [];
     const lines = input.split('\n');
@@ -56,7 +60,7 @@ namespace day9 {
         }) => {
             return prev + curr.val;
         }, 0);
-        console.log(`Part one: ${totalRisk} ${points.length} ${totalRisk + points.length}`);
+        console.log(`Part one: ${totalRisk + points.length}`);
     }
     partOne();
 
