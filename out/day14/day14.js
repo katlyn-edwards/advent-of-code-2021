@@ -7,8 +7,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var day13;
-(function (day13) {
+var day14;
+(function (day14) {
     var input = "NNCB\n\n    CH -> B\n    HH -> N\n    CB -> H\n    NH -> C\n    HB -> C\n    HC -> B\n    HN -> C\n    NN -> C\n    BH -> H\n    NC -> B\n    NB -> B\n    BN -> B\n    BB -> N\n    BC -> B\n    CC -> N\n    CN -> C";
     var clean = input.split("\n").map(function (el) { return el.trim(); });
     var joined = clean.join('\n');
@@ -123,5 +123,5 @@ var day13;
         console.log("Part two: ".concat(max - min, " "));
     }
     partTwo();
-})(day13 || (day13 = {}));
+})(day14 || (day14 = {}));
 //# sourceMappingURL=day14.js.map

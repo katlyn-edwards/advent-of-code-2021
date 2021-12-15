@@ -1,4 +1,4 @@
-namespace day13 {
+namespace day14 {
     const input = `NNCB
 
     CH -> B
