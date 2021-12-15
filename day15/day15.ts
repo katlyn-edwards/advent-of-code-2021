@@ -215,7 +215,7 @@ namespace day15 {
 
     function millisToHoursMinutesAndSeconds(millis: number) {
         const hours = Math.floor(millis / (60 * 60 * 1000))
-        const minutes = Math.floor(millis / (60 * 1000));
+        const minutes = Math.floor(millis / (60 * 1000)) % 60;
         const seconds = Number(((millis % 60000) / 1000).toFixed(0));
         return hours + ':' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
       }

@@ -116,7 +116,7 @@ var day15;
     partOne();
     function millisToHoursMinutesAndSeconds(millis) {
         var hours = Math.floor(millis / (60 * 60 * 1000));
-        var minutes = Math.floor(millis / (60 * 1000));
+        var minutes = Math.floor(millis / (60 * 1000)) % 60;
         var seconds = Number(((millis % 60000) / 1000).toFixed(0));
         return hours + ':' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
     }
