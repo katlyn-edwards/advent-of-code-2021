@@ -10,7 +10,7 @@ namespace day18 {
     [[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
     [[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]`;
 
-    class Node {
+    interface Node {
         left: Node;
         right: Node;
         parent: Node;
