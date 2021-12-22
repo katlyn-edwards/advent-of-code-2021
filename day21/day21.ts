@@ -53,6 +53,12 @@ namespace day20 {
         player1: Player,
         player2: Player,
         instances: number,
+        currentPlayerTurn: number,
+        key: string,
+    }
+
+    function generateUniqueKey(s: State): string {
+        return `${s.player1.score}-${s.player1.position}-${s.player2.score}-${s.player2.position}-${s.currentPlayerTurn}`;
     }
 
     function playQuantumGame(players: Array<{position: number, score: number}>): number {
@@ -60,7 +66,7 @@ namespace day20 {
         let player1Wins = 0;
         let player2Wins = 0;
         // Seed queue with initial state.
-        let quantumStates: Array<State> = [{
+        let initialState = {
             player1: {
                 position: players[0].position,
                 score: players[0].score,
@@ -70,42 +76,62 @@ namespace day20 {
                 score: players[1].score,
             },
             instances: 1,
-        }];
+            currentPlayerTurn: 1,
+            key: '',
+        };
+
+        initialState.key = generateUniqueKey(initialState);
+        let quantumStates: Array<State> = [initialState];
 
         // While there are still unfinished games, keep playing games.
         while (quantumStates.length) {
             let game = quantumStates.shift()
             // For each player, play a turn
             quantumRolls.forEach((val, key) => {
-                let oneNewPosition = game.player1.position + key;
-                while (oneNewPosition > 10) {
-                    oneNewPosition -= 10;
+                let player = game.currentPlayerTurn == 1 ? game.player1 : game.player2;
+                let newPosition = player.position + key;
+                while (newPosition > 10) {
+                    newPosition -= 10;
                 }
-                let oneNewScore = game.player1.score + oneNewPosition;
-                if (oneNewScore >= winningScore) {
-                    player1Wins += (val * game.instances);
-                } else {
-                    // Game not won, let's do player 2.
-                    let twoNewPosition = game.player2.position + key;
-                    while (twoNewPosition > 10) {
-                        twoNewPosition -= 10;
-                    }
-                    let twoNewScore = game.player2.score + twoNewPosition;
-                    if (twoNewScore >= winningScore) {
-                        player2Wins += (val * game.instances);
+                let newScore = player.score + newPosition;
+                if (newScore >= winningScore) {
+                    if (game.currentPlayerTurn == 1) {
+                        player1Wins += (val * game.instances);
                     } else {
-                        // Neither won this round, enqueue for future play.
-                        quantumStates.push({
-                            player1: {
-                                position: oneNewPosition,
-                                score: oneNewScore,
-                            },
-                            player2: {
-                                position: twoNewPosition,
-                                score: twoNewScore,
-                            },
-                            instances: (val * game.instances),
-                        })
+                        player2Wins += (val * game.instances);
+                    }
+                } else {
+                    // Game not won, enqueue for future play.
+                    let player1: Player = {
+                        position: game.player1.position,
+                        score: game.player1.score,
+                    }
+                    let player2: Player = {
+                        position: game.player2.position,
+                        score: game.player1.score,
+                    }
+                    let playerToUpdate = game.currentPlayerTurn == 1 ? player1 : player2;
+                    playerToUpdate.position = newPosition;
+                    playerToUpdate.score = newScore;
+
+                    let newState: State = {
+                        player1,
+                        player2,
+                        instances: (val * game.instances),
+                        currentPlayerTurn: (game.currentPlayerTurn + 1) % 2,
+                        key: '',
+                    };
+                    newState.key = generateUniqueKey(newState);
+                    // I guess I need to coalesc if I want this to finish before
+                    // the heat death of the universe.
+                    let match = quantumStates.find((val: State) => {
+                        return val.key == newState.key;
+                    });
+
+                    if (match) {
+                        match.instances += newState.instances;
+                    } else {
+                        quantumStates.push(newState);
                     }
                 }
             });
