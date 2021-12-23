@@ -1,6 +1,6 @@
-namespace day20 {
-    const input = `Player 1 starting position: 4
-    Player 2 starting position: 8`;
+namespace day21 {
+    const input = `Player 1 starting position: 3
+    Player 2 starting position: 5`;
 
     let deterministicDice = 0;
     function rollDeterministicDice(): number {
@@ -24,7 +24,6 @@ namespace day20 {
     }
 
     const quantumRolls = generateQuantumDiceRolls();
-
     function generateQuantumDiceRolls(): Map<number, number> {
         let sums = [];
         for (let d1 = 1; d1 < 4; d1++) {
@@ -86,30 +85,36 @@ namespace day20 {
         // While there are still unfinished games, keep playing games.
         while (quantumStates.length) {
             let game = quantumStates.shift()
-            // For each player, play a turn
-            quantumRolls.forEach((val, key) => {
-                let player = game.currentPlayerTurn == 1 ? game.player1 : game.player2;
-                let newPosition = player.position + key;
+            let player = game.currentPlayerTurn == 1 ? game.player1 : game.player2;
+            // For each dice roll, spawn new game.
+            // quantumRolls is a map from roll result to instances of that roll
+            // out of the fixed 27 options (3 rolls with 3 options each)
+            // e.g. { 3 => 1, 4 => 3, 5 => 6, 6 => 7, 7 => 6, 8 => 3, 9 => 1 }
+            quantumRolls.forEach((times, roll) => {
+                let newPosition = player.position + roll;
                 while (newPosition > 10) {
                     newPosition -= 10;
                 }
                 let newScore = player.score + newPosition;
+                // Winner winner, chicken dinner.
                 if (newScore >= winningScore) {
                     if (game.currentPlayerTurn == 1) {
-                        player1Wins += (val * game.instances);
+                        player1Wins += (times * game.instances);
                     } else {
-                        player2Wins += (val * game.instances);
+                        player2Wins += (times * game.instances);
                     }
                 } else {
                     // Game not won, enqueue for future play.
+                    // Clone players
                     let player1: Player = {
                         position: game.player1.position,
                         score: game.player1.score,
                     }
                     let player2: Player = {
                         position: game.player2.position,
-                        score: game.player1.score,
+                        score: game.player2.score,
                     }
+                    // Update current player score and position.
                     let playerToUpdate = game.currentPlayerTurn == 1 ? player1 : player2;
                     playerToUpdate.position = newPosition;
                     playerToUpdate.score = newScore;
@@ -117,20 +122,22 @@ namespace day20 {
                     let newState: State = {
                         player1,
                         player2,
-                        instances: (val * game.instances),
+                        instances: (times * game.instances),
                         currentPlayerTurn: (game.currentPlayerTurn + 1) % 2,
                         key: '',
                     };
                     newState.key = generateUniqueKey(newState);
                     // I guess I need to coalesc if I want this to finish before
                     // the heat death of the universe.
-                    let match = quantumStates.find((val: State) => {
-                        return val.key == newState.key;
+                    let match = quantumStates.find((state: State) => {
+                        return state.key == newState.key;
                     });
 
                     if (match) {
+                        // Found an existing entry in the queue, coalesc. 
                         match.instances += newState.instances;
                     } else {
+                        // Otherwise, add new state to queue.
                         quantumStates.push(newState);
                     }
                 }

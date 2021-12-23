@@ -1,6 +1,6 @@
-var day20;
-(function (day20) {
-    var input = "Player 1 starting position: 4\n    Player 2 starting position: 8";
+var day21;
+(function (day21) {
+    var input = "Player 1 starting position: 3\n    Player 2 starting position: 5";
     var deterministicDice = 0;
     function rollDeterministicDice() {
         deterministicDice++;
@@ -64,52 +64,60 @@ var day20;
         var quantumStates = [initialState];
         var _loop_1 = function () {
             var game = quantumStates.shift();
-            // For each player, play a turn
-            quantumRolls.forEach(function (val, key) {
-                var player = game.currentPlayerTurn == 1 ? game.player1 : game.player2;
-                var newPosition = player.position + key;
+            var player = game.currentPlayerTurn == 1 ? game.player1 : game.player2;
+            // For each dice roll, spawn new game.
+            // quantumRolls is a map from roll result to instances of that roll
+            // out of the fixed 27 options (3 rolls with 3 options each)
+            // e.g. { 3 => 1, 4 => 3, 5 => 6, 6 => 7, 7 => 6, 8 => 3, 9 => 1 }
+            quantumRolls.forEach(function (times, roll) {
+                var newPosition = player.position + roll;
                 while (newPosition > 10) {
                     newPosition -= 10;
                 }
                 var newScore = player.score + newPosition;
+                // Winner winner, chicken dinner.
                 if (newScore >= winningScore) {
                     if (game.currentPlayerTurn == 1) {
-                        player1Wins += (val * game.instances);
+                        player1Wins += (times * game.instances);
                     }
                     else {
-                        player2Wins += (val * game.instances);
+                        player2Wins += (times * game.instances);
                     }
                 }
                 else {
                     // Game not won, enqueue for future play.
+                    // Clone players
                     var player1 = {
                         position: game.player1.position,
                         score: game.player1.score,
                     };
                     var player2 = {
                         position: game.player2.position,
-                        score: game.player1.score,
+                        score: game.player2.score,
                     };
+                    // Update current player score and position.
                     var playerToUpdate = game.currentPlayerTurn == 1 ? player1 : player2;
                     playerToUpdate.position = newPosition;
                     playerToUpdate.score = newScore;
                     var newState_1 = {
                         player1: player1,
                         player2: player2,
-                        instances: (val * game.instances),
+                        instances: (times * game.instances),
                         currentPlayerTurn: (game.currentPlayerTurn + 1) % 2,
                         key: '',
                     };
                     newState_1.key = generateUniqueKey(newState_1);
                     // I guess I need to coalesc if I want this to finish before
                     // the heat death of the universe.
-                    var match = quantumStates.find(function (val) {
-                        return val.key == newState_1.key;
+                    var match = quantumStates.find(function (state) {
+                        return state.key == newState_1.key;
                     });
                     if (match) {
+                        // Found an existing entry in the queue, coalesc. 
                         match.instances += newState_1.instances;
                     }
                     else {
+                        // Otherwise, add new state to queue.
                         quantumStates.push(newState_1);
                     }
                 }
@@ -188,5 +196,5 @@ var day20;
         console.log("Total runtime took ".concat(millisTotal, " milliseconds, or ").concat(millisToHoursMinutesAndSeconds(millisTotal)));
     }
     partTwo();
-})(day20 || (day20 = {}));
+})(day21 || (day21 = {}));
 //# sourceMappingURL=day21.js.map
